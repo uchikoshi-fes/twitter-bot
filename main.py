@@ -2,9 +2,13 @@
 
 from setting import *
 import spread_sheet as sheet
+import slack
 
 def make_notice_string(num):
 	s = "[自動通知]\n"
+	
+	s += "※注意 現在テスト中です\n"
+	
 	s += "ツイート内容のリクエストがありました。\n"
 	s += "リクエストのポスト時間 : "
 	s += sheet.get_timestamp(num) + "\n"
@@ -34,7 +38,7 @@ def make_notice_string(num):
 # 許可申請メールを送る。ついでにSlackにも通知
 def send_request(num):
 	ns = make_notice_string(num)
-	
+	slack.post(ns)
 
 
 # 溜まっているリクエストをチェックして、メールを送信
